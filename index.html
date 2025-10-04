@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopify Seller Plans</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <style>
+        .popular-stamp {
+            background: #ffde59;
+            color: #b77c00;
+            font-weight: bold;
+            font-size: 0.8rem;
+            padding: 0.2rem 0.8rem;
+            border-radius: 9999px;
+            margin-left: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+        .popular-stamp::before {
+            content: '★';
+            color: #f5a623;
+            margin-right: 0.2rem;
+        }
+        .feature-item {
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        .feature-item::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #96bf48;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .modal-overlay {
+            background: rgba(33,43,54,0.36);
+        }
+        .modal-card {
+            min-width: 340px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,.18);
+        }
+        .hidden {
+            display: none;
+        }
+        .fade-out {
+            animation: fadeOut 0.5s ease-out forwards;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in forwards;
+        }
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .success-checkmark {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+        }
+        .success-checkmark .check-icon {
+            width: 80px;
+            height: 80px;
+            position: relative;
+            border-radius: 50%;
+            box-sizing: content-box;
+            border: 4px solid #96bf48;
+            background: #f0f9e8;
+        }
+        .success-checkmark .check-icon::before {
+            top: 3px;
+            left: -2px;
+            width: 30px;
+            transform-origin: 100% 50%;
+            border-radius: 100px 0 0 100px;
+        }
+        .success-checkmark .check-icon::after {
+            top: 0;
+            left: 30px;
+            width: 60px;
+            transform-origin: 0 50%;
+            border-radius: 0 100px 100px 0;
+            animation: rotate-circle 4.25s ease-in;
+        }
+        .success-checkmark .check-icon::before,
+        .success-checkmark .check-icon::after {
+            content: '';
+            height: 100px;
+            position: absolute;
+            background: #fff;
+            transform: rotate(-45deg);
+        }
+        .success-checkmark .icon-line {
+            height: 5px;
+            background-color: #96bf48;
+            display: block;
+            border-radius: 2px;
+            position: absolute;
+            z-index: 10;
+        }
+        .success-checkmark .icon-line.line-tip {
+            top: 46px;
+            left: 14px;
+            width: 25px;
+            transform: rotate(45deg);
+            animation: icon-line-tip 0.75s;
+        }
+        .success-checkmark .icon-line.line-long {
+            top: 38px;
+            right: 8px;
+            width: 47px;
+            transform: rotate(-45deg);
+            animation: icon-line-long 0.75s;
+        }
+        @keyframes icon-line-tip {
+            0% { width: 0; left: 1px; top: 19px; }
+            54% { width: 0; left: 1px; top: 19px; }
+            70% { width: 50px; left: -8px; top: 37px; }
+            84% { width: 17px; left: 21px; top: 48px; }
+            100% { width: 25px; left: 14px; top: 45px; }
+        }
+        @keyframes icon-line-long {
+            0% { width: 0; right: 46px; top: 54px; }
+            65% { width: 0; right: 46px; top: 54px; }
+            84% { width: 55px; right: 0px; top: 35px; }
+            100% { width: 47px; right: 8px; top: 38px; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Main Plans View -->
+    <div id="plans-view" class="container mx-auto px-4 py-8 max-w-4xl">
+        <header class="flex flex-col items-center mb-8 text-center">
+            <div class="flex items-center gap-3 mb-2">
+                <img src="https://cdn.shopify.com/assets/images/logos/shopify-bag.png" alt="Shopify Logo" class="w-12 h-12">
+                <h1 class="text-3xl font-bold text-green-800">Shopify Seller Plans</h1>
+            </div>
+            <h2 class="text-xl text-gray-800 mb-1">
+                Choose Your Perfect Plan
+            </h2>
+            <p class="text-sm text-gray-600 max-w-lg">
+                Get compliant with our seller permit solutions designed for Shopify merchants of all sizes. Select the plan that best fits your business needs.
+            </p>
+        </header>
+
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <!-- 3 Months Plan -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden border-t-4 border-green-500" data-aos="fade-up">
+                <div class="p-6">
+                    <div class="flex justify-between items-start">
+                        <h2 class="text-xl font-bold text-gray-800">3 Months Plan</h2>
+                    </div>
+                    <div class="text-2xl font-bold text-green-800 mt-2">$190</div>
+                    <p class="text-sm text-gray-600 mt-1">Basic compliance for new sellers</p>
+                    <ul class="mt-4 space-y-2">
+                        <li class="feature-item">3 Months coverage</li>
+                        <li class="feature-item">Basic compliance</li>
+                        <li class="feature-item">Email support</li>
+                    </ul>
+                    <button class="w-full mt-6 bg-green-500 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200" onclick="openModal('3months')">
+                        Select Plan
+                    </button>
+                </div>
+            </div>
+
+            <!-- 6 Months Plan -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden border-t-4 border-green-500 transform hover:scale-105 transition duration-300" data-aos="fade-up" data-aos-delay="100">
+                <div class="p-6">
+                    <div class="flex justify-between items-start">
+                        <h2 class="text-xl font-bold text-gray-800">6 Months Plan</h2>
+                    </div>
+                    <div class="text-2xl font-bold text-green-800 mt-2">$300</div>
+                    <div class="text-green-700 font-semibold text-sm mt-1">Save $10</div>
+                    <p class="text-sm text-gray-600 mt-1">Great for growing businesses</p>
+                    <ul class="mt-4 space-y-2">
+                        <li class="feature-item">6 Months coverage</li>
+                        <li class="feature-item">Priority support</li>
+                        <li class="feature-item">Compliance updates</li>
+                    </ul>
+                    <button class="w-full mt-6 bg-green-500 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200" onclick="openModal('6months')">
+                        Select Plan
+                    </button>
+                </div>
+            </div>
+
+            <!-- 10 Months Plan -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden border-t-4 border-green-500" data-aos="fade-up" data-aos-delay="200">
+                <div class="p-6">
+                    <div class="flex justify-between items-start">
+                        <h2 class="text-xl font-bold text-gray-800">10 Months Plan</h2>
+                        <span class="popular-stamp">Popular</span>
+                    </div>
+                    <div class="text-2xl font-bold text-green-800 mt-2">$500</div>
+                    <div class="text-green-700 font-semibold text-sm mt-1">Save $20</div>
+                    <p class="text-sm text-gray-600 mt-1">Ideal for established sellers</p>
+                    <ul class="mt-4 space-y-2">
+                        <li class="feature-item">10 Months coverage</li>
+                        <li class="feature-item">24/7 support</li>
+                        <li class="feature-item">Compliance monitoring</li>
+                    </ul>
+                    <button class="w-full mt-6 bg-green-500 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200" onclick="openModal('10months')">
+                        Select Plan
+                    </button>
+                </div>
+            </div>
+
+            <!-- 1 Year Plan -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden border-t-4 border-green-500" data-aos="fade-up" data-aos-delay="300">
+                <div class="p-6">
+                    <div class="flex justify-between items-start">
+                        <h2 class="text-xl font-bold text-gray-800">1 Year Plan</h2>
+                    </div>
+                    <div class="text-2xl font-bold text-green-800 mt-2">$850</div>
+                    <div class="text-green-700 font-semibold text-sm mt-1">Save $30</div>
+                    <p class="text-sm text-gray-600 mt-1">Best for long-term sellers</p>
+                    <ul class="mt-4 space-y-2">
+                        <li class="feature-item">1 year coverage</li>
+                        <li class="feature-item">Dedicated account manager</li>
+                        <li class="feature-item">Full compliance package</li>
+                    </ul>
+                    <button class="w-full mt-6 bg-green-500 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200" onclick="openModal('1year')">
+                        Select Plan
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <footer class="mt-12 text-center text-sm text-gray-600">
+            <div class="flex justify-center space-x-4 mb-2">
+                <a href="#" class="hover:text-gray-800"><i data-feather="facebook"></i></a>
+                <a href="#" class="hover:text-gray-800"><i data-feather="instagram"></i></a>
+                <a href="#" class="hover:text-gray-800"><i data-feather="twitter"></i></a>
+                <a href="#" class="hover:text-gray-800"><i data-feather="linkedin"></i></a>
+            </div>
+            <p>© 2025 Shopify Seller Permit. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Thank You View -->
+    <div id="thankyou-view" class="container mx-auto px-4 py-8 max-w-2xl hidden">
+        <div class="bg-white rounded-lg shadow-lg p-8 text-center" data-aos="zoom-in">
+            <div class="success-checkmark">
+                <div class="check-icon">
+                    <span class="icon-line line-tip"></span>
+                    <span class="icon-line line-long"></span>
+                </div>
+            </div>
+            
+            <h1 class="text-3xl font-bold text-green-800 mb-3">Thank You!</h1>
+            <h2 class="text-xl text-gray-800 mb-4">Your Application Has Been Received</h2>
+            
+            <div class="bg-green-50 border-l-4 border-green-500 p-4 mb-6">
+                <p class="text-gray-700">
+                    We've received your application for the <strong id="thankyou-plan"></strong>. 
+                    Our team will review your submission and get back to you within 24-48 hours.
+                </p>
+            </div>
+            
+            <div class="space-y-3 text-left mb-6">
+                <h3 class="text-lg font-semibold text-gray-800 mb-2">What happens next?</h3>
+                <div class="flex items-start space-x-3">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">1</div>
+                    </div>
+                    <div>
+                        <p class="text-gray-700"><strong>Verification</strong></p>
+                        <p class="text-sm text-gray-600">We'll verify your store and business information</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">2</div>
+                    </div>
+                    <div>
+                        <p class="text-gray-700"><strong>Documentation</strong></p>
+                        <p class="text-sm text-gray-600">You'll receive an email with next steps and required documents</p>
+                    </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">3</div>
+                    </div>
+                    <div>
+                        <p class="text-gray-700"><strong>Activation</strong></p>
+                        <p class="text-sm text-gray-600">Once approved, your plan will be activated immediately</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t pt-6">
+                <p class="text-sm text-gray-600 mb-4">
+                    A confirmation email has been sent to <strong id="thankyou-email"></strong>
+                </p>
+                <button onclick="goBackToPlans()" class="bg-green-500 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-lg transition duration-200">
+                    Return to Plans
+                </button>
+            </div>
+        </div>
+        
+        <footer class="mt-12 text-center text-sm text-gray-600">
+            <div class="flex justify-center space-x-4 mb-2">
+                <a href="#" class="hover:text-gray-800"><i data-feather="facebook"></i></a>
+                <a href="#" class="hover:text-gray-800"><i data-feather="instagram"></i></a>
+                <a href="#" class="hover:text-gray-800"><i data-feather="twitter"></i></a>
+                <a href="#" class="hover:text-gray-800"><i data-feather="linkedin"></i></a>
+            </div>
+            <p>© 2025 Shopify Seller Permit. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal-overlay" class="fixed inset-0 flex items-center justify-center z-50 modal-overlay hidden">
+        <div class="bg-white rounded-lg p-6 modal-card relative" data-aos="zoom-in">
+            <button id="modal-close" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 text-2xl" aria-label="Close">&times;</button>
+            <div id="selected-plan" class="text-green-800 font-bold mb-4"></div>
+            <h3 class="text-xl font-bold text-gray-800 mb-4">Application Form</h3>
+            <form id="seller-form" class="space-y-4">
+                <input type="hidden" name="plan" id="form-plan" value="">
+                
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                    <input id="email" name="email" type="email" placeholder="you@example.com" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+                
+                <div>
+                    <label for="store" class="block text-sm font-medium text-gray-700 mb-1">Store URL</label>
+                    <input id="store" name="store" type="text" placeholder="https://yourstore.myshopify.com" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+                
+                <div>
+                    <label for="location" class="block text-sm font-medium text-gray-700 mb-1">Location of Operation</label>
+                    <select id="location" name="location" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                        <option value="">Select your location</option>
+                        <option>United States</option>
+                        <option>Canada</option>
+                        <option>United Kingdom</option>
+                        <option>Australia</option>
+                        <option>European Union</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label for="business" class="block text-sm font-medium text-gray-700 mb-1">Business Name</label>
+                    <input id="business" name="business" type="text" placeholder="Your business name" required class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500">
+                </div>
+                
+                <div class="flex items-center">
+                    <input type="checkbox" id="agree" required class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded">
+                    <label for="agree" class="ml-2 block text-sm text-gray-700">I agree to the terms and conditions</label>
+                </div>
+                
+                <button type="submit" class="w-full bg-green-500 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">
+                    Submit Application
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        AOS.init();
+        feather.replace();
+
+        const planNames = {
+            '3months': '3 Months Plan',
+            '6months': '6 Months Plan',
+            '10months': '10 Months Plan',
+            '1year': '1 Year Plan'
+        };
+
+        function openModal(plan) {
+            document.getElementById('modal-overlay').classList.remove('hidden');
+            document.getElementById('form-plan').value = plan;
+            document.getElementById('selected-plan').textContent = 'Selected Plan: ' + planNames[plan];
+        }
+
+        document.getElementById('modal-close').addEventListener('click', function() {
+            document.getElementById('modal-overlay').classList.add('hidden');
+        });
+
+        document.getElementById('modal-overlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.add('hidden');
+            }
+        });
+
+        document.getElementById('seller-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const email = formData.get('email');
+            const plan = formData.get('plan');
+            
+            try {
+                await fetch('https://submit-form.com/cc4UhMPRS', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                document.getElementById('modal-overlay').classList.add('hidden');
+                
+                document.getElementById('plans-view').classList.add('fade-out');
+                setTimeout(() => {
+                    document.getElementById('plans-view').classList.add('hidden');
+                    document.getElementById('thankyou-view').classList.remove('hidden');
+                    document.getElementById('thankyou-view').classList.add('fade-in');
+                    document.getElementById('thankyou-plan').textContent = planNames[plan];
+                    document.getElementById('thankyou-email').textContent = email;
+                    
+                    AOS.refresh();
+                    feather.replace();
+                    
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }, 500);
+                
+                this.reset();
+            } catch (error) {
+                console.error('Error submitting form:', error);
+                alert('There was an error submitting your application. Please try again.');
+            }
+        });
+
+        function goBackToPlans() {
+            document.getElementById('thankyou-view').classList.add('fade-out');
+            setTimeout(() => {
+                document.getElementById('thankyou-view').classList.add('hidden');
+                document.getElementById('thankyou-view').classList.remove('fade-in');
+                document.getElementById('plans-view').classList.remove('hidden', 'fade-out');
+                document.getElementById('plans-view').classList.add('fade-in');
+                
+                AOS.refresh();
+                feather.replace();
+                
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 500);
+        }
+    </script>
+</body>
+</html>
